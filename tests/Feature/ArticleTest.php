@@ -81,13 +81,13 @@ class ArticleTest extends TestCase
     }
     
     /** @test */ 
-    public function it_deletes_an_articles(){
+    // public function it_deletes_an_articles(){
         
-        $this->json('DELETE',"/api/articles/{$this->article->slug}",['api_token' => $this->user->api_token])
-            ->assertStatus(204);
+    //     $this->json('DELETE',"/api/articles/{$this->article->slug}",['api_token' => $this->user->api_token])
+    //         ->assertStatus(204);
 
-        $this->assertNull(Article::find($this->article->slug));
+    //     $this->assertNull(Article::find($this->article->slug));
 
-    }
+    // }
 
 }

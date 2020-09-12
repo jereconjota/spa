@@ -1977,6 +1977,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
     window.token = this.user.api_token;
     axios.interceptors.request.use(function (config) {
+      console.log('testing');
       console.log(config);
       var page = ''; //Si usamos la auth basada en tokens, tenemos que enviar el token en cada peticion get a travez de la url
       //en el path put o delete, la enviamos en data
@@ -2078,6 +2079,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       pagination: {}
     };
   },
+  props: ['endPoint'],
   created: function created() {
     console.log('created');
     this.fetchArticles();
@@ -2086,9 +2088,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     fetchArticles: function fetchArticles() {
       var _this = this;
 
-      var endPoint = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "/api/articles";
+      var endPoint = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '/api/articles';
       // axios.get(`api/articles?api_token=${window.token}`)
-      axios.get("/api/articles").then(function (response) {
+      axios.get(endPoint).then(function (response) {
+        console.log(response);
         _this.articles = response.data.data;
 
         _this.makePagination(_objectSpread(_objectSpread({}, response.data.meta), response.data.links));
@@ -2099,8 +2102,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     makePagination: function makePagination(data) {
       this.pagination = data;
     },
-    doPagination: function doPagination(data) {
-      this.fetchArticles("".concat(this.endpoint, "?page=").concat(page));
+    // When the user clicks on the button, scroll to the top of the document
+    topFunction: function topFunction() {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    },
+    doPagination: function doPagination(page) {
+      this.fetchArticles("/api/articles?page=".concat(page));
+      this.topFunction();
     }
   }
 });

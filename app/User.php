@@ -43,8 +43,8 @@ class User extends Authenticatable
 
     public function getApiData(){
         return[
-            'id' => $this->id,
-            'api_token' => $this->api_token
+            "id" => $this->id,
+            "api_token" => $this->api_token
         ];
     }
     

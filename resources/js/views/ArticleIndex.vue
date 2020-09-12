@@ -36,16 +36,19 @@ export default {
         }
     },
 
+    props: ['endPoint'],
+    
     created(){
         console.log('created')     
         this.fetchArticles()
     },
 
     methods: {
-        fetchArticles( endPoint = `/api/articles`){
+        fetchArticles( endPoint = '/api/articles'){
             // axios.get(`api/articles?api_token=${window.token}`)
-            axios.get(`/api/articles`)
+            axios.get(endPoint)
                 .then(response => {
+                    console.log(response)
                     this.articles = response.data.data
                     this.makePagination({...response.data.meta, ...response.data.links})
                 })
@@ -57,10 +60,18 @@ export default {
         makePagination(data){
             this.pagination = data;
         },
+        
+        // When the user clicks on the button, scroll to the top of the document
+        topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        },
 
-        doPagination(data){
-            this.fetchArticles(`${this.endpoint}?page=${page}`)
-        }
+        doPagination(page){
+            this.fetchArticles(`/api/articles?page=${page}`)
+            this.topFunction()
+        },
+
 
     }
 }

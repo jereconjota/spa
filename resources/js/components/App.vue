@@ -35,7 +35,6 @@
                   <li class="mr-3 py-2 lg:py-0">
                      <router-link to="/about" class="inline-block py-2 px-4 text-gray-900 font-bold no-underline">About</router-link>
                   </li>
-
                   <li class="mr-3 py-2 lg:py-0">
                      <router-link to="#" v-on:click.native="logout" class="inline-block py-2 px-4 text-gray-900 font-bold no-underline">Logout</router-link>
                   </li>
@@ -43,8 +42,7 @@
             </div>
          </div>
       </nav>
-
-   <div class="container justify-center w-full flex flex-wrap mx-auto px-2 pt-2 lg:pt-16 mt-2">
+      <div class="container justify-center w-full flex flex-wrap mx-auto px-2 pt-2 lg:pt-16 mt-2">
          <div class="w-full p-8 mt-6 text-gray-900">
             <!-- <transition name="view" appear enter-active-class="animated zoomInRight" leave-active-class="animated zoomOutLeft"> -->
                <router-view></router-view>
@@ -62,14 +60,12 @@
       created(){
          window.token = this.user.api_token;
          axios.interceptors.request.use( (config) => {
-
+            console.log('testing')
             console.log(config)
             let page = '';
-
             //Si usamos la auth basada en tokens, tenemos que enviar el token en cada peticion get a travez de la url
             //en el path put o delete, la enviamos en data
             if (config.method === "get") {
-
                if (config.url.match('/\?./')) {
                   let url = config.url.split("?")
                   let page = url[1]
@@ -77,7 +73,6 @@
                   config.url = `${url}?api_token=${this.user.api_token}&${page}`
                   return config
                }
-
                // config.url = config.url + "?api_token=" + this.user.api_token
                config.url = `${config.url}?api_token=${this.user.api_token}`
             }else{
@@ -86,7 +81,6 @@
                   api_token: this.user.api_token
                }
             }
-
             return config
          })
       }
