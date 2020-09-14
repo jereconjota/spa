@@ -100,4 +100,9 @@ class ArticleController extends Controller
             'thumbnail'=>'required'        
             ]);
     }
+
+    public function myArticles(){
+        $user = Auth::user();
+        return ArticleResource::collection($user->articles()->paginate(3));
+    }
 }

@@ -24,7 +24,7 @@
                </div>
                <ul class="list-reset lg:flex justify-end items-center">
                   <li class="mr-3 py-2 lg:py-0">
-                     <router-link to="/" class="inline-block py-2 px-4 text-gray-900 font-bold no-underline">Home</router-link>
+                     <router-link to="/articles" class="inline-block py-2 px-4 text-gray-900 font-bold no-underline">Home</router-link>
                   </li>
                   <li class="mr-3 py-2 lg:py-0">
                      <router-link to="/my_articles" class="inline-block py-2 px-4 text-gray-900 font-bold no-underline">My Articles</router-link>
@@ -59,13 +59,14 @@
 
       created(){
          window.token = this.user.api_token;
+         window.id = this.user.id;
+
          axios.interceptors.request.use( (config) => {
-            console.log('testing')
             console.log(config)
-            let page = '';
             //Si usamos la auth basada en tokens, tenemos que enviar el token en cada peticion get a travez de la url
             //en el path put o delete, la enviamos en data
             if (config.method === "get") {
+            let page = '';
                if (config.url.match('/\?./')) {
                   let url = config.url.split("?")
                   let page = url[1]
@@ -83,6 +84,15 @@
             }
             return config
          })
+      },
+
+      methods: {
+         logout() {
+            axios.post('/logout')
+            .catch(error => {
+                  window.location.href = '/login';
+            });
+         }
       }
 
    }

@@ -19,7 +19,10 @@ class DatabaseSeeder extends Seeder
             'email' => 'testroot@mail.com',
             'password' => Hash::make("testroot"),
         ]);
-
+        factory(User::class)->create([
+            'email' => 'jere@mail.com',
+            'password' => Hash::make("jere"),
+        ]);
         factory(Article::class)->times(20)->create();
         factory(Comment::class)->times(10)->create();
 
