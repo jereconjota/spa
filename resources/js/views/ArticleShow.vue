@@ -40,6 +40,8 @@ export default {
 		},
 
 		edit(){
+			let slug = this.article.slug
+			this.$router.push({name: 'edit' , params: { slug} });
 
 		},
 

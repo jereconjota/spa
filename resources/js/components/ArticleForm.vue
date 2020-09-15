@@ -41,7 +41,7 @@
 
 		methods: {
 			submitForm() {
-					if(this.action === 'edit')
+					if(this.action === 'update')
 						this.updateArticle();
 					else
 						this.createArticle();
@@ -63,6 +63,8 @@
 			},
 
 			updateArticle() {
+					this.article.attributes.thumbnail = 'https://picsum.photos/250/200';
+
 					axios.put(`/api/articles/${this.article.slug}`, this.article.attributes)
 						.then(response => {
 							let slug = response.data.data.slug;
@@ -84,7 +86,7 @@
 
 		computed: {
 			buttonTitle() {
-					return this.action === 'edit' ? "Update" : "Create"
+					return this.action === 'update' ? "Update" : "Create"
 			}
 		}
 	}
